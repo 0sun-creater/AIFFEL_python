@@ -37,18 +37,44 @@ def solution(n, t, m, timetable):
     person_n = len(timetable)
     stand = 540 #9*60
     #timetable h to m
-    time = []
+    person = []
     for v in timetable:
         temp = v.split(':')
-        time.append(int(temp[0])*60 + int(temp[1]))
+        person.append(int(temp[0])*60 + int(temp[1]))
     
-    time.sort()
-    
-    max_person = n * m
-    if person_n < max_person:
-        return m2h(stand + (n * t) - 1)
-    
-    max_time = time[max_person-1]
-    return m2h(max_time-1)
+    person.sort()
+  
+    person_cnt =0
+    bus = 1
+    i = 0
+    while True:
+        v = person[i]
+        person_cnt += 1
 
-solution(1,1,5,["08:00", "08:01", "08:02", "08:03"])
+        if v > stand + (t * (bus-1)):
+            bus +=1
+            person_cnt = 0
+            i -=1
+            
+        if person_cnt == m:
+            if bus == n:
+                return m2h(v-1)
+            bus +=1
+            person_cnt = 0
+        
+        i +=1
+        
+        if i == len(person):
+            break
+
+    return m2h(stand + ((n-1) * t))
+
+a=solution(1,1,5,["08:00", "08:01", "08:02", "08:03"])       
+b=solution(2,10,2,["09:10", "09:09", "08:00"])
+c=solution(2,1,2,["09:00", "09:00", "09:00", "09:00"])
+d=solution(1,1,5,["00:01", "00:01", "00:01", "00:01", "00:01"])
+e=solution(1,1,1,["23:59"])
+f=solution(10,60,45,["23:59","23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59", "23:59"])
+
+print(a,b,c,d,e,f)
+#"09:00" "09:09" "08:59" "00:00" "09:00" "18:00"
