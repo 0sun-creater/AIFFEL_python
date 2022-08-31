@@ -63,4 +63,4 @@ def solution(p):
             else: 
                 answer += '('
 
-    return answer해 주세요
+    return answer

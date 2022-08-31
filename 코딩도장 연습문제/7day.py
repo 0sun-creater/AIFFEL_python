@@ -34,7 +34,7 @@ def unit23(matrix):
             if matrix[c][r] == '*' :
                 answer[c][r] = '*'
             else:
-                answer[c][r] = find(matrix, c, r, col, row)
+                answer[c][r] = unit23_find(matrix, c, r, col, row)
             
     print(answer)
     
